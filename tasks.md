@@ -55,6 +55,8 @@ select count ( distinct country ) AS "Unique teams"
 from divisions divisions
 join matches matches on divisions.code = matches.division_code
 where country = 'France';
+-- Solution Answer
+select count(distinct hometeam) from matches where division_code  IN ('F1','F2');
 ```
 
 7) Have Huddersfield played Swansea in the period covered?
@@ -74,8 +76,10 @@ else cast('no' as varchar) end
 
 ```sql
 select count (*)
-from matches 
-where season >=2010 and season <=2015 and fthg=ftag;
+from divisions divisions
+join matches matches on divisions.code = matches.division_code
+where season >=2010 and season <=2015 and fthg=ftag and name = 'Eredivisie';
+-- Could have used between rather than <= and >=
 ```
 
 9) Select the matches played in the Premier League in order of total goals scored from highest to lowest. Where there is a tie the match with more home goals should come first.
@@ -88,16 +92,18 @@ where name = 'Premier League'
 order by 
 case when fthg=ftag then fthg end desc,
 case when fthg<>ftag then fthg + ftag end desc;
+-- Correct Solution: can order by multiple things fthg and fthg+ftag desc
 ```
 
 10) In which division and which season were the most goals scored?
 
 ```sql
-select distinct name, season, max(fthg + ftag)
+select distinct name, season, sum(fthg + ftag)
 from divisions divisions
 join matches matches on divisions.code = matches.division_code
 group by divisions.name, matches.season
-order by max desc;
+order by sum desc
+limit 1;
 ```
 
 ### Useful Resources
