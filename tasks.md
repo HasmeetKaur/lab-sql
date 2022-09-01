@@ -6,30 +6,18 @@ Each of the questions/tasks below can be answered using a `SELECT` query. When y
 
 ```sql
 <!-- Copy solution here -->
-
-select * from matches where season = 2017;
+select * 
+from matches 
+where season = 2017;
 ```
 
 2) Find all the matches featuring Barcelona.
 
 ```sql
 <!-- Copy solution here -->
-
 select *
-
 from matches
 where lower(hometeam) like lower('%Barcelona%') or lower(awayteam) like lower('%Barcelona%') ;
-
--- select 
--- divisions.*,
--- matches.*
-
--- from divisions divisions
--- join matches matches on divisions.code = matches.division_code
-
--- where country = 'Barcelona';
-
--- SELECT * FROM movies WHERE LOWER(title) LIKE LOWER('%Barcelona%');
 
 ```
 
@@ -62,8 +50,10 @@ group by divisions.code, matches.division_code;
 
 ```sql
 <!-- Copy solution here -->
-select distinct hometeam, awayteam from matches where (lower(hometeam) like lower('%City%') or lower(awayteam) like lower('%City%'));
-
+select distinct hometeam, awayteam 
+from matches 
+where (lower(hometeam) like lower('%City%') 
+or lower(awayteam) like lower('%City%'));
 
 ```
 
@@ -98,7 +88,6 @@ else cast('no' as varchar) end
 
 ```sql
 <!-- Copy solution here -->
-
 select count (*)
 from matches 
 where season >=2010 and season <=2015 and fthg=ftag;
@@ -109,7 +98,6 @@ where season >=2010 and season <=2015 and fthg=ftag;
 
 ```sql
 <!-- Copy solution here -->
-
 select division_code, (fthg + ftag) as TotalGoal
 from divisions divisions
 join matches matches on divisions.code = matches.division_code
