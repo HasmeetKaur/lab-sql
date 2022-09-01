@@ -110,6 +110,13 @@ where season >=2010 and season <=2015 and fthg=ftag;
 ```sql
 <!-- Copy solution here -->
 
+select division_code, (fthg + ftag) as TotalGoal
+from divisions divisions
+join matches matches on divisions.code = matches.division_code
+where name = 'Premier League' 
+order by 
+case when fthg=ftag then fthg end desc,
+case when fthg<>ftag then fthg + ftag end desc;
 
 ```
 
@@ -117,7 +124,11 @@ where season >=2010 and season <=2015 and fthg=ftag;
 
 ```sql
 <!-- Copy solution here -->
-
+select distinct name, season, max(fthg + ftag)
+from divisions divisions
+join matches matches on divisions.code = matches.division_code
+group by divisions.name, matches.season
+order by max desc;
 
 ```
 
